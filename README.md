@@ -28,6 +28,7 @@ test runs, and bug tracking across multiple projects.
 - Real-time notifications
 
 ## 🗄️ Database Schema
+<img width="2145" height="884" alt="Image" src="https://github.com/user-attachments/assets/86bf5aa5-e1e1-487c-a792-8a88746e80d3" />
 
 - Users
 - Projects
