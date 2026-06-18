@@ -23,7 +23,6 @@
     <Folder Include="DTOs\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
