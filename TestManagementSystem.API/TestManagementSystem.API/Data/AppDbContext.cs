@@ -47,6 +47,11 @@ namespace TestManagementSystem.API.Data
                 .WithMany(tc => tc.Attachments)
                 .HasForeignKey(a => a.TestCaseId)
                 .IsRequired(false);
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }

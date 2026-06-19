@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using TestManagementSystem.API.Data;
+
 namespace TestManagementSystem.API
 {
     public class Program
@@ -6,6 +9,9 @@ namespace TestManagementSystem.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // DI  Dbcontext
+            builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
 
