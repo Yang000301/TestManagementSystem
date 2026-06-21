@@ -1,6 +1,12 @@
 
 using Microsoft.EntityFrameworkCore;
 using TestManagementSystem.API.Data;
+using TestManagementSystem.API.Repositories.Auth;
+using TestManagementSystem.API.Services.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 namespace TestManagementSystem.API
 {
@@ -11,8 +17,26 @@ namespace TestManagementSystem.API
             var builder = WebApplication.CreateBuilder(args);
             // DI  Dbcontext
             builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // Repository & Service µù¥U
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            // JWT ÅçÃÒ
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                    };
+                });
             // Add services to the container.
 
             builder.Services.AddControllers();
