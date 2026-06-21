@@ -42,7 +42,7 @@ test runs, and bug tracking across multiple projects.
 ## 📅 Development Progress
 
 - [x] DB Schema Design
-- [ ] Login / Authentication
+- [X] Login / Authentication
 - [ ] Project Module
 - [ ] Test Case Module
 - [ ] Bug Module
