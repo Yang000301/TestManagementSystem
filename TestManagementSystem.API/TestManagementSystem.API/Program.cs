@@ -6,8 +6,10 @@ using System.Text;
 using TestManagementSystem.API.Data;
 using TestManagementSystem.API.Repositories.Auth;
 using TestManagementSystem.API.Repositories.Project;
+using TestManagementSystem.API.Repositories.TestCase;
 using TestManagementSystem.API.Services.Auth;
 using TestManagementSystem.API.Services.Project;
+using TestManagementSystem.API.Services.TestCase;
 
 
 namespace TestManagementSystem.API
@@ -26,6 +28,9 @@ namespace TestManagementSystem.API
             //Project µù¥U
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddScoped<IProjectService, ProjectService>();
+            // TestCase µù¥U
+            builder.Services.AddScoped<ITestCaseRepository, TestCaseRepository>();
+            builder.Services.AddScoped<ITestCaseService, TestCaseService>();
             // JWT ÅçÃÒ
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
