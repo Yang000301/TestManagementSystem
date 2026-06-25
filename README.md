@@ -44,7 +44,7 @@ test runs, and bug tracking across multiple projects.
 - [x] DB Schema Design
 - [X] Login / Authentication
 - [X] Project Module
-- [ ] Test Case Module
+- [X] Test Case Module
 - [ ] Bug Module
 - [ ] Dashboard
 - [ ] Docker Deployment
