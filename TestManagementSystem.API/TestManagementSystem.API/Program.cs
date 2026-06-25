@@ -5,9 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TestManagementSystem.API.Data;
 using TestManagementSystem.API.Repositories.Auth;
+using TestManagementSystem.API.Repositories.Bug;
 using TestManagementSystem.API.Repositories.Project;
 using TestManagementSystem.API.Repositories.TestCase;
 using TestManagementSystem.API.Services.Auth;
+using TestManagementSystem.API.Services.Bug;
 using TestManagementSystem.API.Services.Project;
 using TestManagementSystem.API.Services.TestCase;
 
@@ -31,6 +33,9 @@ namespace TestManagementSystem.API
             // TestCase µù¥U
             builder.Services.AddScoped<ITestCaseRepository, TestCaseRepository>();
             builder.Services.AddScoped<ITestCaseService, TestCaseService>();
+            //Bug CRUD µù¥U
+            builder.Services.AddScoped<IBugRepository, BugRepository>();
+            builder.Services.AddScoped<IBugService, BugService>();
             // JWT ÅçÃÒ
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
