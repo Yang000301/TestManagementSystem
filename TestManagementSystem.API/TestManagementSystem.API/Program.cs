@@ -52,6 +52,16 @@ namespace TestManagementSystem.API
                             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
                     };
                 });
+            //CORS ³]©w
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowVue", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5174", "http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -95,7 +105,8 @@ namespace TestManagementSystem.API
             }
 
             app.UseHttpsRedirection();
-
+            //«eºÝCors
+            app.UseCors("AllowVue");
             app.UseAuthorization();
 
 
