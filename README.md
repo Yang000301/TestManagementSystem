@@ -45,7 +45,7 @@ test runs, and bug tracking across multiple projects.
 - [X] Login / Authentication
 - [X] Project Module
 - [X] Test Case Module
-- [ ] Bug Module
+- [X] Bug Module
 - [ ] Dashboard
 - [ ] Docker Deployment
 - [ ] CI/CD Pipeline
