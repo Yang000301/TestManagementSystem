@@ -62,6 +62,7 @@ namespace TestManagementSystem.API
                           .AllowAnyMethod();
                 });
             });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
