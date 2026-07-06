@@ -47,7 +47,7 @@ test runs, and bug tracking across multiple projects.
 - [X] Test Case Module
 - [X] Bug Module
 - [ ] Dashboard
-- [ ] Docker Deployment
+- [X] Docker Deployment
 - [ ] CI/CD Pipeline
 - [ ] Playwright Integration
 
