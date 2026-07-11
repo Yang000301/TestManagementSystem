@@ -41,26 +41,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import api from '../api'
 
 const router = useRouter()
 const projects = ref([])
 const showCreateDialog = ref(false)
 const newProject = ref({ name: '', description: '' })
 
-const getToken = () => localStorage.getItem('token')
 
 const fetchProjects = async () => {
-  const response = await axios.get('https://localhost:7034/api/project', {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  const response = await api.get('/api/project')
   projects.value = response.data
 }
 
 const createProject = async () => {
-  await axios.post('https://localhost:7034/api/project', newProject.value, {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  await api.post('/api/project', newProject.value)
   showCreateDialog.value = false
   newProject.value = { name: '', description: '' }
   fetchProjects()

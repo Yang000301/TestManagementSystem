@@ -1,8 +1,11 @@
 <template>
-  <div class="login-container">
-    <el-card class="login-card">
-      <h2>Test Management System</h2>
+  <div class="register-container">
+    <el-card class="register-card">
+      <h2>註冊帳號</h2>
       <el-form :model="form" label-width="80px">
+        <el-form-item label="使用者名稱">
+          <el-input v-model="form.username" placeholder="請輸入使用者名稱" />
+        </el-form-item>
         <el-form-item label="Email">
           <el-input v-model="form.email" placeholder="請輸入 Email" />
         </el-form-item>
@@ -15,13 +18,13 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin" :loading="loading">
-            登入
+          <el-button type="primary" @click="handleRegister" :loading="loading">
+            註冊
           </el-button>
         </el-form-item>
       </el-form>
-        <div class="register-link">
-        還沒有帳號？<router-link to="/register">立即註冊</router-link>
+      <div class="login-link">
+        已經有帳號？<router-link to="/login">返回登入</router-link>
       </div>
     </el-card>
   </div>
@@ -32,30 +35,23 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../api'
 
-
 const router = useRouter()
 const loading = ref(false)
 
 const form = ref({
+  username: '',
   email: '',
   password: ''
 })
 
-const handleLogin = async () => {
+const handleRegister = async () => {
   loading.value = true
   try {
-    const response = await api.post('/api/auth/login', {
-      email: form.value.email,
-      password: form.value.password
-    })
-
-    // 存 Token
+    const response = await api.post('/api/auth/register', form.value)
     localStorage.setItem('token', response.data.token)
-
-    // 跳到專案列表
     router.push('/projects')
   } catch (error) {
-    alert('帳號或密碼錯誤')
+    alert(error.response?.data?.message || '註冊失敗')
   } finally {
     loading.value = false
   }
@@ -63,7 +59,7 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-.login-container {
+.register-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +67,7 @@ const handleLogin = async () => {
   background-color: #f0f2f5;
 }
 
-.login-card {
+.register-card {
   width: 400px;
 }
 
@@ -80,7 +76,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-.register-link {
+.login-link {
   text-align: center;
   margin-top: 10px;
 }
