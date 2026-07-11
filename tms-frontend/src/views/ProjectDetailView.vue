@@ -48,7 +48,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import axios from 'axios'
+import api from '../api'
 
 const router = useRouter()
 const route = useRoute()
@@ -59,28 +59,20 @@ const testCases = ref([])
 const showCreateDialog = ref(false)
 const newTestCase = ref({ title: '', description: '', priority: 'Medium' })
 
-const getToken = () => localStorage.getItem('token')
-
 const fetchProject = async () => {
-  const response = await axios.get(`https://localhost:7034/api/project/${projectId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  const response = await api.get(`/api/project/${projectId}`)
   project.value = response.data
 }
 
 const fetchTestCases = async () => {
-  const response = await axios.get(`https://localhost:7034/api/testcase/project/${projectId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  const response = await api.get(`/api/testcase/project/${projectId}`)
   testCases.value = response.data
 }
 
 const createTestCase = async () => {
-  await axios.post('https://localhost:7034/api/testcase', {
+  await api.post('/api/testcase', {
     ...newTestCase.value,
     projectId: parseInt(projectId)
-  }, {
-    headers: { Authorization: `Bearer ${getToken()}` }
   })
   showCreateDialog.value = false
   newTestCase.value = { title: '', description: '', priority: 'Medium' }

@@ -49,7 +49,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import axios from 'axios'
+import api from '../api'
 
 const router = useRouter()
 const route = useRoute()
@@ -60,28 +60,20 @@ const bugs = ref([])
 const showCreateDialog = ref(false)
 const newBug = ref({ title: '', description: '', severity: 'Medium' })
 
-const getToken = () => localStorage.getItem('token')
-
 const fetchTestCase = async () => {
-  const response = await axios.get(`https://localhost:7034/api/testcase/${testCaseId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  const response = await api.get(`/api/testcase/${testCaseId}`)
   testCase.value = response.data
 }
 
 const fetchBugs = async () => {
-  const response = await axios.get(`https://localhost:7034/api/bug/testcase/${testCaseId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` }
-  })
+  const response = await api.get(`/api/bug/testcase/${testCaseId}`)
   bugs.value = response.data
 }
 
 const createBug = async () => {
-  await axios.post('https://localhost:7034/api/bug', {
+  await api.post('/api/bug', {
     ...newBug.value,
     testCaseId: parseInt(testCaseId)
-  }, {
-    headers: { Authorization: `Bearer ${getToken()}` }
   })
   showCreateDialog.value = false
   newBug.value = { title: '', description: '', severity: 'Medium' }
