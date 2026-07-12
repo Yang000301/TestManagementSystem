@@ -14,8 +14,9 @@ services:
       context: ./TestManagementSystem.API/TestManagementSystem.API
       dockerfile: Dockerfile
     ports:
-      - "5000:80"
+      - "5000:8080"
     environment:
+      - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=Server=db;Database=TestManagementSystem;User Id=sa;Password=TMS_Password123!;TrustServerCertificate=True;
       - Jwt__Key=TMS_SuperSecretKey_2026_MustBe32CharactersLong!
       - Jwt__Issuer=TestManagementSystem
