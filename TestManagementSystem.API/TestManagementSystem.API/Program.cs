@@ -57,7 +57,7 @@ namespace TestManagementSystem.API
             {
                 options.AddPolicy("AllowVue", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5174", "http://localhost:5173")
+                    policy.WithOrigins("http://localhost:5174", "http://localhost:5173" , "http://129.150.49.226")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
