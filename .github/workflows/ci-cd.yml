@@ -78,8 +78,9 @@ jobs:
           context: ./tms-frontend
           file: ./tms-frontend/Dockerfile
           push: true
-          tags: ghcr.io/yang000301/testmanagementsystem-api:latest
-deploy:
+          tags: ghcr.io/yang000301/testmanagementsystem-frontend:latest
+
+  deploy:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
