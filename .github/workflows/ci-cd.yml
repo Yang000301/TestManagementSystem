@@ -5,10 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_API: ${{ github.repository }}-api
-  IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
+
 jobs:
   build-backend:
     runs-on: ubuntu-latest
@@ -26,6 +26,7 @@ jobs:
 
       - name: Build
         run: dotnet build TestManagementSystem.API/TestManagementSystem.API/TestManagementSystem.API.csproj --no-restore
+
   build-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -44,6 +45,7 @@ jobs:
       - name: Build
         working-directory: ./tms-frontend
         run: npm run build
+
   build-and-push-docker:
     needs: [build-backend, build-frontend]
     runs-on: ubuntu-latest
@@ -68,7 +70,7 @@ jobs:
           context: ./TestManagementSystem.API/TestManagementSystem.API
           file: ./TestManagementSystem.API/TestManagementSystem.API/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_API }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/testmanagementsystem-api:latest
 
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
@@ -76,4 +78,4 @@ jobs:
           context: ./tms-frontend
           file: ./tms-frontend/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/testmanagementsystem-frontend:latest
