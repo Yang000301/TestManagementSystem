@@ -23,3 +23,21 @@ jobs:
 
       - name: Build
         run: dotnet build TestManagementSystem.API/TestManagementSystem.API/TestManagementSystem.API.csproj --no-restore
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: ./tms-frontend
+        run: npm install
+
+      - name: Build
+        working-directory: ./tms-frontend
+        run: npm run build
