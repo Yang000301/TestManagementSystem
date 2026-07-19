@@ -10,9 +10,7 @@ services:
       - sqldata:/var/opt/mssql
 
   api:
-    build:
-      context: ./TestManagementSystem.API/TestManagementSystem.API
-      dockerfile: Dockerfile
+    image: ghcr.io/yang000301/testmanagementsystem-api:latest
     ports:
       - "5000:8080"
     environment:
@@ -25,9 +23,7 @@ services:
       - db
 
   frontend:
-    build:
-      context: ./tms-frontend
-      dockerfile: Dockerfile
+    image: ghcr.io/yang000301/testmanagementsystem-frontend:latest
     ports:
       - "80:80"
     depends_on:
