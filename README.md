@@ -48,7 +48,7 @@ test runs, and bug tracking across multiple projects.
 - [X] Bug Module
 - [ ] Dashboard
 - [X] Docker Deployment
-- [ ] CI/CD Pipeline
+- [X] CI/CD Pipeline
 - [ ] Playwright Integration
 
 ## 🌐 Live Demo
