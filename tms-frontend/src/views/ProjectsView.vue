@@ -1,7 +1,7 @@
 <template>
   <div class="projects-container">
     <div class="header">
-      <h2>專案列表test</h2>
+      <h2>專案列表</h2>
       <el-button type="primary" @click="showCreateDialog = true"> 新增專案 </el-button>
     </div>
 
@@ -82,7 +82,7 @@ const createProject = async () => {
 
     newProject.value = {
       name: '',
-      description: ''
+      description: '',
     }
 
     await fetchProjects()
