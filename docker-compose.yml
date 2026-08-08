@@ -15,8 +15,8 @@ services:
       - "5000:8080"
     environment:
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Server=db;Database=TestManagementSystem;User Id=sa;Password=TMS_Password123!;TrustServerCertificate=True;
-      - Jwt__Key=TMS_SuperSecretKey_2026_MustBe32CharactersLong!
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TestManagementSystem;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;
+      - Jwt__Key= ${JWT_KEY}
       - Jwt__Issuer=TestManagementSystem
       - Jwt__Audience=TestManagementSystem
     depends_on:
