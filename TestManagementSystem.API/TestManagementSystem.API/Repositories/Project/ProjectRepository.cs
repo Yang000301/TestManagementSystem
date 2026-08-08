@@ -21,14 +21,26 @@ namespace TestManagementSystem.API.Repositories.Project
                 .ToListAsync();
         }
 
-        public async Task<Models.Project?> GetByIdAsync(int id)
+        public async Task<Models.Project?> GetByIdAsync(int id, int userId)
+        {
+            return await _context.Projects
+            .Include(p => p.Owner)
+            .Include(p => p.ProjectMembers)
+            .FirstOrDefaultAsync(p =>
+                p.Id == id &&
+            (
+               p.OwnerId == userId ||
+               p.ProjectMembers.Any(pm => pm.UserId == userId)
+            ));
+        }
+        public async Task<Models.Project?> GetOwnedProjectAsync(int id, int userId)
         {
             return await _context.Projects
                 .Include(p => p.Owner)
-                .Include(p => p.ProjectMembers)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p =>
+                    p.Id == id &&
+                    p.OwnerId == userId);
         }
-
         public async Task<Models.Project> CreateAsync(Models.Project project)
         {
             _context.Projects.Add(project);
@@ -48,6 +60,7 @@ namespace TestManagementSystem.API.Repositories.Project
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
         }
+        
     }
 }
 
