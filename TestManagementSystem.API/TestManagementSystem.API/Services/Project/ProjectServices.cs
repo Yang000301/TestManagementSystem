@@ -20,8 +20,11 @@ namespace TestManagementSystem.API.Services.Project
 
         public async Task<ProjectResponseDto?> GetByIdAsync(int id, int userId)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
-            if (project == null) return null;
+            var project = await _projectRepository.GetByIdAsync(id, userId);
+
+            if (project == null)
+                return null;
+
             return MapToDto(project);
         }
 
@@ -41,11 +44,10 @@ namespace TestManagementSystem.API.Services.Project
 
         public async Task<ProjectResponseDto> UpdateAsync(int id, UpdateProjectDto dto, int userId)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
+            var project = await _projectRepository.GetOwnedProjectAsync(id, userId);
+
             if (project == null)
-                throw new Exception("專案不存在");
-            if (project.OwnerId != userId)
-                throw new Exception("沒有權限修改此專案");
+                throw new Exception("專案不存在或沒有權限修改");
 
             project.Name = dto.Name;
             project.Description = dto.Description;
@@ -57,11 +59,10 @@ namespace TestManagementSystem.API.Services.Project
 
         public async Task DeleteAsync(int id, int userId)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
+            var project = await _projectRepository.GetOwnedProjectAsync(id, userId);
+
             if (project == null)
-                throw new Exception("專案不存在");
-            if (project.OwnerId != userId)
-                throw new Exception("沒有權限刪除此專案");
+                throw new Exception("專案不存在或沒有權限刪除");
 
             await _projectRepository.DeleteAsync(project);
         }

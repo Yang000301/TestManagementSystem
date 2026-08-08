@@ -25,14 +25,14 @@ namespace TestManagementSystem.API.Controllers.TestCase
         [HttpGet("project/{projectId}")]
         public async Task<IActionResult> GetByProjectId(int projectId)
         {
-            var testCases = await _testCaseService.GetByProjectIdAsync(projectId);
+            var testCases = await _testCaseService.GetByProjectIdAsync(projectId, GetUserId());
             return Ok(testCases);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var testCase = await _testCaseService.GetByIdAsync(id);
+            var testCase = await _testCaseService.GetByIdAsync(id, GetUserId());
             if (testCase == null) return NotFound();
             return Ok(testCase);
         }

@@ -22,6 +22,10 @@ namespace TestManagementSystem.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<ProjectMember>()
+                .HasIndex(pm => new { pm.ProjectId, pm.UserId })
+                .IsUnique();
+
             // Comment nullable FK
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Bug)
